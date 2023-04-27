@@ -1,0 +1,53 @@
+php artisan make:model User -cmf
+
+
+
+php artisan route:cache
+php artisan route:list
+
+
+1. php artisan make:controller Api/LoginController
+
+2. public function login(Request $request)
+    {
+        $this->validateLogin($request);
+        if (Auth::attempt($request->only('email', 'password'))) {
+            return response()->json([
+                'token'=>$request->user()->createToken($request->name)->plainTextToken,
+                'message'=>'Succes'
+            ]);
+        }
+        return response()->json([
+            'message'=>'Unauthenticated'
+        ],401);
+    }
+
+    public function validateLogin(Request $request)
+    {
+        return $request->validate([
+            'email'=>'required|email',
+            'password'=>'required',
+            'name'=>'required'
+        ]);
+    }
+
+3 en el api-
+Route::post('login', [App\Http\Controllers\Api\LoginController::class, 'login']);
+
+
+    ///////////////
+
+   -  php artisan make:controller  Api/V1/FarmacoController --api --model=farmaco
+
+   -  php artisan make:resource  V1/FarmacoResource
+
+    - configurar controlador
+
+    -en api
+    use App\Http\Controllers\Api\V1\FarmacoController as FarmacoV1;
+
+    Route::apiResource('v1/farmacos', FarmacoV1::class)
+      ->only(['index','show', 'destroy'])
+      ->middleware('auth:sanctum');
+
+      
