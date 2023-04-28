@@ -42,7 +42,8 @@ Route::controller(FarmacoController::class)->group(function(){
    Route::delete('farmacos/{farmaco}', 'destroy');
    Route::put('farmacosss/{farmaco}', 'store3');
    Route::put('farmacosact/{farmaco}', 'active');
-
+   // este es un comentario de prueba en git
+   
 });
 
 Route::controller(InteraccionesController::class)->group(function(){
